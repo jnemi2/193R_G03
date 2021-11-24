@@ -5,11 +5,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "helper.h"
 
 
 int main(){
     printf("Reading...\n");
+
+    // Loads the file in a dynamic array of chars
     FILE * file = fopen("A1.txt", "rt");
     fseek(file, 0, SEEK_END);
     long length = ftell(file);
@@ -18,25 +19,19 @@ int main(){
     buffer[length] = '\0';
     fread(buffer, 1, length, file);
     fclose(file);
-    printf("%s", buffer);
 
-    const char separator[2] = "\n\0";
-    Stack* stack = NULL;
+    const char separator[3] = " \n\0";
+
+    int word_count = 0;
 
     // Assignment
     char* token = strtok(buffer, separator);
     while (token != NULL) {
-        push(&stack, token);
         token = strtok(NULL, separator);
+        word_count++;
     }
 
-    int line_count = 0;
-    while (stack != NULL) {
-        printf("%s", peak(stack));
-        pop(&stack);
-        line_count++;
-    }
-    printf("\nThe file has %d lines\n", line_count);
+    printf("\nThe file has %d words\n", word_count);
 
     return 0;
 }
