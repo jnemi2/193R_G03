@@ -7,7 +7,8 @@
 
 
 int main(){
-    printf("Hello, world!\n");
-
+    printf("Deleting file...\n");
+    remove("Merge.txt");
+    printf("Done\n");
     return 0;
 }
