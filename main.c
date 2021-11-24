@@ -23,6 +23,7 @@ int main(){
     fwrite(buffer, 1, length, file);
     fclose(file);
 
+    free(buffer);
     printf("Done\n");
     return 0;
 }
