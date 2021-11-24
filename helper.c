@@ -18,25 +18,24 @@ Stack *newNode() {
     return aux;
 }
 
-void push(Stack *stack, char *string) {
+void push(Stack **stack, char *string) {
     Stack* aux = newNode();
     strcpy((aux->string), string);
-    if (stack == NULL) {
-        stack = aux;
+    if (*stack == NULL) {
+        *stack = aux;
     } else {
-        aux->next = stack->next;
-        stack = aux;
+        aux->next = *stack;
+        *stack = aux;
     }
 }
 
-char *pop(Stack *stack) {
+char *pop(Stack **stack) {
     Stack* aux = NULL;
     char* str = NULL;
     if (stack != NULL) {
-        aux = stack;
-        stack = aux->next;
+        aux = *stack;
+        *stack = aux->next;
         str = aux->string;
-        free(aux);
     }
 
     return str;

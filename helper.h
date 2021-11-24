@@ -4,14 +4,15 @@
 
 #ifndef INC_193R_G03_HELPER_H
 #define INC_193R_G03_HELPER_H
+#define TEXT_LEN 100
 
 typedef struct stack {
-    char* string;
+    char string[TEXT_LEN];
     struct stack * next;
 } Stack;
 
 Stack* newNode();
-void push(Stack* stack, char* string);
-char* pop(Stack* stack);
+void push(Stack** stack, char* string);
+char* pop(Stack** stack);
 
 #endif //INC_193R_G03_HELPER_H
