@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define LINE_TO_DELETE 2
 
 
 int main(){
@@ -20,18 +21,32 @@ int main(){
     fread(buffer, 1, length, file);
     fclose(file);
 
-    const char separator[3] = " \n\0";
+    const char separator[2] = "\n\0";
 
-    int word_count = 0;
+    int start_ref = 0;
+    int line_length = 0;
 
     // Assignment
     char* token = strtok(buffer, separator);
-    while (token != NULL) {
+    for (int i = 0; i < LINE_TO_DELETE - 1; i++) {
         token = strtok(NULL, separator);
-        word_count++;
+        start_ref = start_ref + strlen(token) + 1;
     }
 
-    printf("\nThe file has %d words\n", word_count);
+    token = strtok(NULL, separator); // Finding line_length
+    line_length = strlen(token);
+
+    char* out_buffer = (char*) malloc(line_length + 1);
+    out_buffer[line_length] = '\0';
+    for (int c = 0; c < line_length; c++) {
+        out_buffer[c] = ' '; //Updating buffer with new info to override file
+    }
+
+    file = fopen("A1.txt", "rt+");
+    fseek(file, start_ref + 1, SEEK_SET); // Seeking line to delete
+    fwrite(out_buffer, 1, line_length, file);
+    fclose(file);
+
 
     return 0;
 }
