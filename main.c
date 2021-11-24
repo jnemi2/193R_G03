@@ -21,8 +21,10 @@ int main(){
     Stack*  stack = NULL;
     push(&stack, "Hello");
     push(&stack, "world");
-    printf("%s", pop(&stack));
-    printf("%s", pop(&stack));
+    printf("%s", peak(stack));
+    pop(&stack);
+    printf("%s", peak(stack));
+    pop(&stack);
 
     return 0;
 }

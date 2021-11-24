@@ -13,6 +13,7 @@ typedef struct stack {
 
 Stack* newNode();
 void push(Stack** stack, char* string);
-char* pop(Stack** stack);
+void pop(Stack** stack);
+char* peak(Stack* stack);
 
 #endif //INC_193R_G03_HELPER_H

@@ -29,16 +29,21 @@ void push(Stack **stack, char *string) {
     }
 }
 
-char *pop(Stack **stack) {
+void pop(Stack **stack) {
     Stack* aux = NULL;
-    char* str = NULL;
-    if (stack != NULL) {
+    if (*stack != NULL) {
         aux = *stack;
         *stack = aux->next;
-        str = aux->string;
+        free(aux);
     }
+}
 
-    return str;
+char *peak(Stack *stack) {
+    char* aux = NULL;
+    if (stack != NULL) {
+        aux = stack->string;
+    }
+    return aux;
 }
 
 
