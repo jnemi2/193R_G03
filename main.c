@@ -30,10 +30,13 @@ int main(){
         token = strtok(NULL, separator);
     }
 
+    int line_count = 0;
     while (stack != NULL) {
         printf("%s", peak(stack));
         pop(&stack);
+        line_count++;
     }
+    printf("\nThe file has %d lines\n", line_count);
 
     return 0;
 }
