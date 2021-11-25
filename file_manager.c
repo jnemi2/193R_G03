@@ -9,11 +9,29 @@
 
 void save(char* id, char* last_name, char* first_name) {
     FILE * file = fopen("people.txt", "at");
-    long length = strlen(id) + strlen(last_name) + strlen(first_name);
-    char* buffer = (char*) malloc(length + 1);
-    strcat(buffer, id);
-    strcat(buffer, last_name);
-    strcat(buffer, first_name);
+    long length = ID_LENGTH + LASTNAME_LENGTH + FIRSTNAME_LENGTH;
+    long reference = 0;
+    char buffer[length + 1];
+    while (reference <= ID_LENGTH && *(id+reference) != '\0') {
+        buffer[reference] = *(id+reference);
+        reference++;
+    }
+    for (int i = reference; i < ID_LENGTH; i++)
+        buffer[reference] = ' ';
+    reference = 0;
+    while (reference <= LASTNAME_LENGTH && *(last_name+reference) != '\0') {
+        buffer[reference + ID_LENGTH] = *(last_name+reference);
+        reference++;
+    }
+    for (int i = reference; i < LASTNAME_LENGTH; i++)
+        buffer[reference] = ' ';
+    reference = 0;
+    while (reference <= FIRSTNAME_LENGTH && *(first_name+reference) != '\0') {
+        buffer[reference + ID_LENGTH + LASTNAME_LENGTH] = *(first_name+reference);
+        reference++;
+    }
+    for (int i = reference; i < FIRSTNAME_LENGTH; i++)
+        buffer[reference] = ' ';
     buffer[length] = '\0';
     fwrite(buffer, 1, length, file);
 }
