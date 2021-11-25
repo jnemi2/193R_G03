@@ -17,21 +17,22 @@ void save(char* id, char* last_name, char* first_name) {
         reference++;
     }
     for (int i = reference; i < ID_LENGTH; i++)
-        buffer[reference] = ' ';
+        buffer[i] = ' ';
     reference = 0;
     while (reference <= LASTNAME_LENGTH && *(last_name+reference) != '\0') {
         buffer[reference + ID_LENGTH] = *(last_name+reference);
         reference++;
     }
     for (int i = reference; i < LASTNAME_LENGTH; i++)
-        buffer[reference] = ' ';
+        buffer[i + ID_LENGTH] = ' ';
     reference = 0;
     while (reference <= FIRSTNAME_LENGTH && *(first_name+reference) != '\0') {
         buffer[reference + ID_LENGTH + LASTNAME_LENGTH] = *(first_name+reference);
         reference++;
     }
     for (int i = reference; i < FIRSTNAME_LENGTH; i++)
-        buffer[reference] = ' ';
+        buffer[i + ID_LENGTH + LASTNAME_LENGTH] = ' ';
     buffer[length] = '\0';
     fwrite(buffer, 1, length, file);
+    fclose(file);
 }
