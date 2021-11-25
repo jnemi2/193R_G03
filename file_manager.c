@@ -8,44 +8,32 @@
 #include "file_manager.h"
 
 void save(char* id, char* last_name, char* first_name) {
-    FILE * file = fopen("people2.txt", "at");
+    FILE * file = fopen("people3.txt", "at");
     long len_id = strlen(id);
     long len_firstname = strlen(first_name);
     long len_lastname = strlen(last_name);
-    long length = len_id + len_lastname + len_firstname + 3;
-    int len_digits = count_digits(length);
-    length = length + len_digits;  // Calculating record length
+    long length = len_id + len_lastname + len_firstname + 3;  // Calculating record length
     char buffer[length + 1];
-    itoa(length, buffer, 10);  // Adding record length digits to buffer
-    buffer[len_digits] = ':';
-    int i=0;
-    for (i=0; i < len_id && *(id+i) != '\0'; i++)
-        buffer[i + len_digits + 1] = *(id+i);  // Filling first field
-
-    buffer[i + len_digits + 1] = ':';
-    i = i + len_digits + 1;
-    for (int j = 0; j < len_lastname && *(last_name+j) != '\0'; j++) {
-        i++;
-        buffer[i] = *(last_name+j);  // Filling the second field
+    buffer[0] = '#';
+    int pos=0;
+    for (int i = 0; i < len_id && *(id+i) != '\0'; i++) {
+        pos++;
+        buffer[pos] = *(id + i);  // Filling first field
     }
-    i++;
-    buffer[i] = ':';
-    for (int j = 0; j < len_firstname && *(first_name+j) != '\0'; j++) {
-        i++;
-        buffer[i] = *(first_name+j);  // Filling the third field
+    pos++;
+    buffer[pos] = ':';
+    for (int i = 0; i < len_lastname && *(last_name+i) != '\0'; i++) {
+        pos++;
+        buffer[pos] = *(last_name+i);
+    }
+    pos++;
+    buffer[pos] = ':';
+    for (int i = 0; i < len_firstname && *(first_name+i) != '\0'; i++) {
+        pos++;
+        buffer[pos] = *(first_name+i);
     }
 
     buffer[length] = '\0';
     fwrite(buffer, 1, length, file);
     fclose(file);
-}
-
-int count_digits(int number) {
-    int aux = number;
-    int counter = 0;
-    while (aux != 0) {
-        aux = aux / 10;
-        counter++;
-    }
-    return counter;
 }
